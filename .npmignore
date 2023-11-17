@@ -1,0 +1,5 @@
+.git
+.vscode
+example
+node_modules
+.*
