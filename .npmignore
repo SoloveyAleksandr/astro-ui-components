@@ -3,3 +3,8 @@
 example
 node_modules
 .*
+bx-build.js
+npm-build.js
+README.md
+tsconfig.json
+postcss.config.cjs

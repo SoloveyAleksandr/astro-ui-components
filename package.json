@@ -9,7 +9,7 @@
   "homepage": "https://github.com/SoloveyAleksandr/astro-ui-components",
   "keywords": [],
   "type": "module",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "scripts": {
     "installAll": "(npm i) && (cd example && npm i)",
     "dev": "cd example && astro dev",

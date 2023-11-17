@@ -1,30 +1,53 @@
-export class Counter extends HTMLElement {
-  count: number = 0;
-  textContainer: HTMLElement | null;
+export class Dropdown {
+  container: HTMLElement;
+  dropped: boolean;
+  btn: any;
 
-  constructor() {
-    super();
+  constructor(container: HTMLElement) {
+    this.container = container;
+    this.dropped = false;
 
-    this.textContainer = this.querySelector(".counter__count");
-    const decBtn = this.querySelector(".counter__btn_dec");
-    const incBtn = this.querySelector(".counter__btn_inc");
+    // блок с data-dropdown-btn станет кнопкой
+    this.btn = this.container.querySelector<HTMLElement>("[data-dropdown-btn]");
 
-    decBtn?.addEventListener("click", this.decrement.bind(this));
-    incBtn?.addEventListener("click", this.increase.bind(this));
+    if (this.btn) {
+      this.btn.addEventListener("click", this.dropStateHandler.bind(this));
+    }
+
+    // data-dropdown-close на контейнере будет закрыть при клике вне контейнера
+    if (this.container.hasAttribute("data-dropdown-close")) {
+      document.addEventListener("click", (e) => {
+        const closestEl = (e.target as HTMLElement).closest(
+          "[data-dropdown-close]",
+        );
+
+        if (!closestEl || closestEl !== this.container) {
+          this.close();
+        }
+      });
+    }
+
+    // data-open - открыт изначально
+    if (this.container.hasAttribute("data-open")) {
+      this.open();
+    }
   }
 
-  decrement() {
-    this.count--;
-    this.render();
+  dropStateHandler() {
+    if (this.dropped) {
+      this.close();
+    } else {
+      this.open();
+    }
   }
 
-  increase() {
-    this.count++;
-    this.render();
+  open() {
+    this.dropped = true;
+    this.container.classList.add("_dropped");
   }
 
-  render() {
-    this.textContainer &&
-      (this.textContainer.textContent = this.count.toString());
+  close() {
+    this.dropped = false;
+    this.container.classList.remove("_dropped");
   }
 }

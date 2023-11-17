@@ -1,0 +1,20 @@
+---
+import "./Box.scss";
+
+interface Props extends astroHTML.JSX.HTMLAttributes {
+  className?: string;
+}
+
+const { className, ...rest } = Astro.props;
+---
+
+<div class:list={["ui-box", className]} {...rest}></div>
+
+<script>
+  const boxList = document.querySelectorAll<HTMLElement>(".ui-box");
+  boxList.forEach((box) => {
+    box.addEventListener("click", () => {
+      console.log("click");
+    });
+  });
+</script>
